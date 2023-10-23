@@ -38,6 +38,8 @@ export const loginHandler = async (req, res, next) => {
         expires: new Date(Date.now() + 3600000),
         httpOnly: false,
         secure: true,
+        Domain:'onrender.com',
+        Path:'/'
     })
 
       return res.status(200).json({
