@@ -37,7 +37,7 @@ export const loginHandler = async (req, res, next) => {
         sameSite: 'none',
         expires: new Date(Date.now() + 3600000),
         httpOnly: true,
-        secure: true,
+        secure: false,
     })
 
       return res.status(200).json({
