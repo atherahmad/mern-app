@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(express.static(path.join(__dirname, '../client/dist/')))
 
-app.use(cors({ origin: ['https://cookies-mern-fe.onrender.com', 'http://cookies-mern-fe.onrender.com'],credentials:true }))
+app.use(cors({ origin: ['https://cookies-mern-fe.onrender.com', 'http://cookies-mern-fe.onrender.com', 'https://aesthetic-unicorn-d58fc5.netlify.app'],credentials:true }))
 app.use(cookieParser())
 
 app.use(express.json({ limit: "30mb", extended: true }));
