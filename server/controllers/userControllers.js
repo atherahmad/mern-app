@@ -49,6 +49,7 @@ export const loginHandler = async (req, res, next) => {
         expires: new Date(Date.now() + 3600000),
         httpOnly: true,
         secure: true,
+        domain:'https://mern-app-fe.onrender.com'
     })
 
       return res.status(200).json({
