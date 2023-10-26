@@ -47,8 +47,9 @@ export const loginHandler = async (req, res, next) => {
       res.cookie('mern-cookie',token, {
         sameSite: 'none',
         expires: new Date(Date.now() + 3600000),
-        httpOnly: false,
-        secure: true
+        httpOnly: true,
+        secure: true,
+        domain:'https://mern-app-fe.onrender.com'
     })
 
       return res.status(200).json({
