@@ -24,7 +24,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(express.static(path.join(__dirname, '../client/dist/')))
-
+app.set("trust proxy", 1);
 app.use(cors({ origin: ['http://localhost:5173','https://mern-app-fe.onrender.com','http://mern-app-fe.onrender.com'],credentials:true }))
 app.use(cookieParser())
 
