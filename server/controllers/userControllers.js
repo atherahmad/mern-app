@@ -11,6 +11,7 @@ export const loginHandler = async (req, res, next) => {
       email: email,
     });
 
+
     if (!user) {
       //return res.status(200).send(user);
       const error = new Error("Invalid Credentials");
@@ -23,6 +24,16 @@ export const loginHandler = async (req, res, next) => {
         error.statusCode = 401;
         throw error;
       }
+
+    //  Another condition to check either the user has confirmed his email address or not
+    // If he has not confirmed we will throw an error that please confirm your email address first
+    // We will not generate the token at all in this condition and return back out of the controller
+      if(!user.verified){
+        const error = new Error('Please confirm your email first')
+        error.statusCode = 403
+        throw error 
+      }
+
       // password correct 
       const payload = {
         email: user.email,
@@ -34,12 +45,10 @@ export const loginHandler = async (req, res, next) => {
       // });
       const token = user.generateToken(payload,process.env.SECRET_KEY);
       res.cookie('mern-cookie',token, {
-        sameSite: 'none',
+        sameSite: 'lax',
         expires: new Date(Date.now() + 3600000),
-        httpOnly: false,
+        httpOnly: true,
         secure: true,
-        Domain:'onrender.com',
-        Path:'/'
     })
 
       return res.status(200).json({
@@ -82,7 +91,10 @@ export const registrationHandler = async (req, res, next) => {
       password: '',
     });
     user.password = await user.hashPassword(password,saltRound);
+
     const result = await user.save();
+
+    // AFTER STORING DATA ON DATABASE
 
     /*     if(req.body.password != req.body.confirmPassword){
       const error = new Error('Password Don not  match')
@@ -139,3 +151,24 @@ export const getFavoritePosts = async (req, res, next) => {
     next(err);
   }
 };
+
+
+export const emailConfirmationHandler = async (req, res, next) => {
+
+  try{
+    const {token} = req.params
+    const payload = jwt.verify(token, process.env.SECRET_KEY)
+    
+    const result = await User.findByIdAndUpdate(payload.userId, {
+      $set : {verified: true}
+    }, {new: true})
+
+    res.redirect('/email-confirmed')
+/*     res.send('You have successfully confirmed your email') */
+  }
+  catch(error){
+    res.redirect('/email-error')
+
+    /* next(error) */
+  }
+}

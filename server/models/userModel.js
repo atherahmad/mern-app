@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import confirmationEmailSender from "../utils/email-sender.js";
 
 export const userSchema = new mongoose.Schema({
   firstName: {
@@ -24,6 +25,10 @@ export const userSchema = new mongoose.Schema({
     unique: true,
   },
   posts: [],
+  verified:{
+    type: Boolean,
+    default: false
+  },
  
   favorites : [{type:mongoose.Schema.Types.ObjectId, ref:'Post'}],
   password: {
@@ -45,14 +50,15 @@ export const userSchema = new mongoose.Schema({
 
 });
 
-userSchema.post('save', function(doc,next){
+userSchema.post('save', async function(doc,next){
 
   // I will build some kind of logic inside the post hook that
   // When user record is successfully created on the data base
   // Send an email on his provided email address in this post hook
   // To confirm his email
-  console.log(' Second Post')
-  next()
+await confirmationEmailSender(doc, next)
+
+
 })
 
 

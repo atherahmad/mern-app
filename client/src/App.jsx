@@ -24,7 +24,6 @@ function App() {
           <Route path='/posts' element={<Posts currentUserId={user._id} favorites={user.favorites}/>}/>
           <Route path='/create-post' element={<CreatePost user={user}/>}/>
           <Route path='/my-favorite' element={<MyFavorite userId={user._id} favorites={user.favorites}/>}/>
-
           <Route path='/edit-post/:postId' element={<EditPost userId={user._id}/>}/>
           <Route path='/' element={<Home />} />
         </Routes>

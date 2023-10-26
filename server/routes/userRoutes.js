@@ -4,7 +4,8 @@ import {
   getUsers,
   loginHandler,
   registrationHandler,
-  getFavoritePosts
+  getFavoritePosts,
+  emailConfirmationHandler
 } from "../controllers/userControllers.js";
 import authMiddleware from '../middlewares/authMiddleware.js'
 const router = express.Router();
@@ -32,7 +33,7 @@ router.post(
   // ],
   registrationHandler,
 );
-
+router.get('/confirm-email/:token', emailConfirmationHandler)
 router.get("/getusers",getUsers);
 router.put('/favorite', authMiddleware,favoriteHandler)
 router.get('/favorite/:userId',authMiddleware, getFavoritePosts)
