@@ -26,9 +26,9 @@ const confirmationEmailSender = async (doc, next) => {
       to: doc.email,
       from: "Mern Post <atherahmad@gmail.com>",
       subject: "Mern Post email Confirmation",
-      text: `To confirm your email please go this link : http://localhost:${process.env.PORT}/api/user/confirm-email/${token}`,
+      text: `To confirm your email please go this link : ${process.env.BE_URL}/api/user/confirm-email/${token}`,
       html: `<h2>Welcome ${doc.firstName}!</h2>
-          <p> To verify your email please <a href="http://localhost:${process.env.PORT}/api/user/confirm-email/${token}">Click Here !</a>`,
+          <p> To verify your email please <a href="${process.env.BE_URL}/api/user/confirm-email/${token}">Click Here !</a>`,
     };
 /*     const result = await sendGrid.send(emailMessage);
     if (result[0].statusCode === 202) return next();

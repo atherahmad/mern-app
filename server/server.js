@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(express.static(path.join(__dirname, '../client/dist/')))
 
-app.use(cors({ origin: ['http://localhost:5173','https://mern-app-fe.onrender.com'],credentials:true }))
+app.use(cors({ origin: ['http://localhost:5173','https://mern-app-fe.onrender.com','http://mern-app-fe.onrender.com'],credentials:true }))
 app.use(cookieParser())
 
 app.use(express.json({ limit: "30mb", extended: true }));
