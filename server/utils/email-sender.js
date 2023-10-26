@@ -24,7 +24,7 @@ const confirmationEmailSender = async (doc, next) => {
     });
     const emailMessage = {
       to: doc.email,
-      from: "Mern Post <atherahmad@gmail.com>",
+      from: "Mern Post <ahmad.ather@digitalcareerinstitute.org>",
       subject: "Mern Post email Confirmation",
       text: `To confirm your email please go this link : ${process.env.BE_URL}/api/user/confirm-email/${token}`,
       html: `<h2>Welcome ${doc.firstName}!</h2>
