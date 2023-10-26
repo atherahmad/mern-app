@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename)
 
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.HOUSENO || 4000;
 
 app.use(express.static(path.join(__dirname, '../client/dist/')))
 
