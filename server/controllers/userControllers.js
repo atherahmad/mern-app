@@ -45,7 +45,7 @@ export const loginHandler = async (req, res, next) => {
       // });
       const token = user.generateToken(payload,process.env.SECRET_KEY);
       res.cookie('mern-cookie',token, {
-        sameSite: 'None',
+        sameSite: 'lax',
         expires: new Date(Date.now() + 3600000),
         httpOnly: true,
         secure: true,
