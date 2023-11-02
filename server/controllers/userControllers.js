@@ -49,6 +49,7 @@ export const loginHandler = async (req, res, next) => {
         expires: new Date(Date.now() + 3600000),
         httpOnly: true,
         secure: true,
+        path:'/'
  
     })
 

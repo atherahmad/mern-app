@@ -5,7 +5,6 @@ const authorizationHandler = async(req, res, next)=> {
 
         // Checking the request object to find the cookies
         console.log(req.cookies['mern-cookie'])
-
         // Taking out the token from cookie or from authorization property
         const token = req.cookies['mern-cookie'] || req.headers.authorization?.split(' ')[1] 
         console.log(token);
@@ -18,10 +17,10 @@ const authorizationHandler = async(req, res, next)=> {
         // If request is an object how can we attach a new property to it?
 
         req.userId = payload.userId
-  
         next()
     }
     catch(error){
+        
         next(error)
     }
 }

@@ -5,6 +5,8 @@ import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postsRoutes.js";
 import cookieParser from "cookie-parser";
 import identifier from "./routes/identifier.js";
+import authMiddleware from './middlewares/authMiddleware.js'
+import User from './models/userModel.js'
 
 // To change our mern app into a static app
 
@@ -34,6 +36,19 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/api/user", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/identifier", identifier);
+app.use("/api/auth/verify-token",authMiddleware,async (req, res, next) => {
+  try{
+    const user = await User.findById(req.userId, {firstName: 1, lastName : 1, email: 1})
+    if(!user){
+      const error = new Error('Bad Request')
+      error.statusCode = 403
+    }
+    res.status(200).json(user)
+  }
+  catch(err){
+    next(err)
+  }
+})
 
 
 /* Email confirmation end point pages */
